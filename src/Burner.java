@@ -108,4 +108,42 @@ public class Burner {
 		return myTemperature;
 	}
 	
+	public void updateTemperature() {
+		
+		if(this.timer > 0) {
+			//Nothing to change yet, too early
+			timer -= 1;
+			return;
+		}
+		
+		
+		//Get the # of possible setting values
+		int settingLength = Setting.values().length;
+		
+		//Evil ordinal hack
+		int tempIndex = this.myTemperature.ordinal();
+		int settingIndex = this.mySetting.ordinal();
+		
+		//Set the setting to be descending order (0 = hottest)
+		//Could also change the enum declaration if we wanted to chance not matching the instructions
+		settingIndex = settingLength - settingIndex - 1;
+		
+		//remember that 0=HOTTEST, 4=COLDEST
+		if(tempIndex < settingIndex) {
+			//Temp is *higher* than setting allows
+			//decrease temperature
+			tempIndex++;
+			this.myTemperature = Temperature.values()[tempIndex];
+		} else if(tempIndex > settingIndex) {
+			//Temp is too low for burner setting
+			//increase temp
+			tempIndex--;
+			this.myTemperature = Temperature.values()[tempIndex];
+		}
+		
+		//If we still haven't reached equilibrium, reset timer to 2
+		if(tempIndex != settingIndex) {
+			this.timer = 2;
+		}
+	}
 }
