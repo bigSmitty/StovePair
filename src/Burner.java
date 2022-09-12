@@ -77,9 +77,35 @@ public class Burner {
 				this.mySetting = Setting.MEDIUM;
 				break;
 		}
-				
-		
 	}
 	
+	
+	//This returns a Temperature to make the "red light" functionality more robust later
+	public Temperature display() {
+		
+		//Boring way of displaying the right message per temperature
+		//Might have been better (if more verbose) to give "Temperature" string values and tostring and whatnot
+		String myTempString = "";
+		switch (this.myTemperature) {
+			case COLD:
+				myTempString = "cooool";
+				break;
+			case WARM:
+				myTempString = "warm";
+				break;
+			case HOT:
+				myTempString = "CAREFUL";
+				break;
+			case BLAZING:
+				myTempString = "VERY HOT! DON'T TOUCH";
+				break;
+		}
+		
+		//Output final message
+		System.out.println("[" + this.mySetting.toString() + "]....." + myTempString);
+		
+		//Return temperature for use in "red light" function
+		return myTemperature;
+	}
 	
 }
