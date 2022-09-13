@@ -3,8 +3,8 @@ import java.util.ArrayList;
 /**
  * Stove class. 
  *  
- * @author Mark Baldwin
- * @author Cyndi Rader
+ * @author Eli Irvine
+ * @author Ruddock Matthew Smith
  * 
  * Purpose: Simulates a stove
  */
@@ -30,10 +30,10 @@ public class Stove {
 	 **** You must write the following method ****
 	 */
 	public void displayStove() {
-		Boolean blazingBurner = false;
-		for(Burner burner: burners) {
+		Boolean blazingBurner = false; // boolean to see if the burner is on blazing temperature
+		for(Burner burner: burners) { // go through the list of burners and call display for each
 			burner.display();
-			if(burner.getMyTempereature().equals("BLAZING")) {
+			if(burner.getMyTempereature().equals("BLAZING")) { // if there is a blazing burner print and extra line
 				blazingBurner = true;
 			}
 		}

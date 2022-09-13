@@ -1,4 +1,11 @@
-
+/**
+ * Burner class. 
+ *  
+ * @author Eli Irvine
+ * @author Ruddock Matthew Smith
+ * 
+ * Purpose: Represents a burner on the stove
+ */
 public class Burner {
 	//Temperature is burner-specific, so no need for its own class
 	public enum Temperature {COLD, WARM, HOT, BLAZING};
@@ -9,7 +16,7 @@ public class Burner {
 	
 	
 	private int timer;
-	public static final int TIME_DURATION = 2;
+	public static final int TIME_DURATION = 2; //two minutes 
 	
 	//Auto-generated getter
 	public String getMyTempereature() {
@@ -17,6 +24,7 @@ public class Burner {
 	}
 	
 	//Only ever use default constructor, no reason for arguments
+	// Initialize temperature to cold and setting to off
 	public Burner() {
 		super();
 		this.myTemperature = Temperature.COLD;
@@ -109,7 +117,9 @@ public class Burner {
 	}
 	
 	public void updateTemperature() {
+		//updates the timer every time the temperature is updated 
 		timer -= 1;
+		// if the timer gets to zero then the program continues this method to update the temperature
 		if(this.timer > 0) {
 			return;
 		}
@@ -118,7 +128,7 @@ public class Burner {
 		//Get the # of possible setting values
 		int settingLength = Setting.values().length;
 		
-		//Evil ordinal hack
+		//Evil ordinal hack that essentially gets the index of the enum
 		int tempIndex = this.myTemperature.ordinal();
 		int settingIndex = this.mySetting.ordinal();
 		
@@ -127,12 +137,12 @@ public class Burner {
 			//Temp is *lower* than setting wants
 			//increase temperature
 			tempIndex++;
-			this.myTemperature = Temperature.values()[tempIndex];
+			this.myTemperature = Temperature.values()[tempIndex]; //set the new temperature
 		} else if(tempIndex > settingIndex) {
 			//Temp is too high for burner setting
 			//decrease temp
 			tempIndex--;
-			this.myTemperature = Temperature.values()[tempIndex];
+			this.myTemperature = Temperature.values()[tempIndex]; //set the new temperature
 		}
 		
 		//If we still haven't reached equilibrium, reset timer to 2
