@@ -1,7 +1,7 @@
 
 public class Burner {
 	//Temperature is burner-specific, so no need for its own class
-	public enum Temperature {BLAZING, HOT, WARM, COLD};
+	public enum Temperature {COLD, WARM, HOT, BLAZING};
 	private Temperature myTemperature;
 	
 	//References Setting.java
@@ -12,8 +12,8 @@ public class Burner {
 	public static final int TIME_DURATION = 2;
 	
 	//Auto-generated getter
-	public Temperature getMyTempereature() {
-		return myTemperature;
+	public String getMyTempereature() {
+		return myTemperature.toString();
 	}
 	
 	//Only ever use default constructor, no reason for arguments
@@ -109,10 +109,8 @@ public class Burner {
 	}
 	
 	public void updateTemperature() {
-		
+		timer -= 1;
 		if(this.timer > 0) {
-			//Nothing to change yet, too early
-			timer -= 1;
 			return;
 		}
 		
@@ -124,19 +122,15 @@ public class Burner {
 		int tempIndex = this.myTemperature.ordinal();
 		int settingIndex = this.mySetting.ordinal();
 		
-		//Set the setting to be descending order (0 = hottest)
-		//Could also change the enum declaration if we wanted to chance not matching the instructions
-		settingIndex = settingLength - settingIndex - 1;
-		
-		//remember that 0=HOTTEST, 4=COLDEST
+		//remember that 0=COLDEST, 3=HOTTEST
 		if(tempIndex < settingIndex) {
-			//Temp is *higher* than setting allows
-			//decrease temperature
+			//Temp is *lower* than setting wants
+			//increase temperature
 			tempIndex++;
 			this.myTemperature = Temperature.values()[tempIndex];
 		} else if(tempIndex > settingIndex) {
-			//Temp is too low for burner setting
-			//increase temp
+			//Temp is too high for burner setting
+			//decrease temp
 			tempIndex--;
 			this.myTemperature = Temperature.values()[tempIndex];
 		}
